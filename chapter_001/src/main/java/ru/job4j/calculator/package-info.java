@@ -1,5 +1,5 @@
 /**
- * Package for calculator task.
+ * Package for calculator, fit tasks.
  *
  * @author Nikolai Bulai (mailto:turisto777.nb@gmail.com)
  * @version 1

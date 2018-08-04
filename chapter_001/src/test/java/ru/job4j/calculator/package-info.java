@@ -1,5 +1,5 @@
 /**
- * Package for calculatorTest task.
+ * Package for calculatorTest, fitTest tasks.
  *
  * @author Nikolai Bulai (mailto:turisto777.nb@gmail.com)
  * @version 1
