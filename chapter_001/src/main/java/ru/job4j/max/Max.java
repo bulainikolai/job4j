@@ -13,9 +13,21 @@ public class Max {
      * Method max.
      * @param first integer number.
      * @param second integer number.
-     * @return a greater number.
+     * @return a greater number of two number.
      */
     public int max(int first, int second) {
         return (first > second) ? first : second;
+    }
+
+    /**
+     * Method max return of three numbers
+     * @param first integer number.
+     * @param second integer number.
+     * @param third integer number.
+     * @return a greater number of three number.
+     */
+    public int max(int first, int second, int third) {
+        int temp = this.max(first, second);
+        return this.max(temp, third);
     }
 }
