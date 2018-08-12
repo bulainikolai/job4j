@@ -15,7 +15,7 @@ public class Counter {
      * @param finish Last number.
      * @return sum of even numbers from start to finish
      */
-    public int add(int start, int finish){
+    public int add(int start, int finish) {
         int evenNumber = (start % 2 != 0) ? start + 1 : start;
         for (int i = evenNumber + 2; i <= finish; i += 2) {
             evenNumber += i;
