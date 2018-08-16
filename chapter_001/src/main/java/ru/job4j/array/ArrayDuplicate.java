@@ -17,33 +17,16 @@ public class ArrayDuplicate {
      * @return array without repeated elements
      */
     public String[] remove(String[] array) {
-
-        int countOfRemoving = 0;
-        String wrongString = "It is completely wrong string!!!";
-        for (int i = 0; i < array.length; i++) {
-            for (int m = i + 1; m < array.length; m++) {
-                if (array[i].equals(array[m]) && !array[i].equals(wrongString)) {
-                    array[m] = wrongString;
-                    countOfRemoving++;
+        int unique = array.length;
+        for (int out = 0; out < unique; out++) {
+            for (int in = out + 1; in < unique; in++) {
+                if (array[out].equals(array[in])) {
+                    array[in] = array[unique - 1];
+                    unique--;
+                    in--;
                 }
             }
         }
-
-        int countOfElements = array.length - countOfRemoving;
-        while (true) {
-            int numOfTurn = countOfElements;
-            for (int i = 0; i < array.length - 1; i++) {
-                if (array[i].equals(wrongString)) {
-                    array[i] = array[i + 1];
-                    array[i + 1] = wrongString;
-                } else {
-                    numOfTurn--;
-                }
-            }
-            if (numOfTurn == 0) {
-                break;
-            }
-        }
-        return Arrays.copyOf(array, countOfElements);
+        return Arrays.copyOf(array, unique);
     }
 }
