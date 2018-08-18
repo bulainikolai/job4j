@@ -10,34 +10,32 @@ package ru.job4j.array;
 public class MatrixCheck {
 
     /**
-     * Method mono check similarity of of diagonals
+     * Method mono check similarity of diagonals
      * @param data array
      * @return boolean, result of comparison
      */
     public boolean mono(boolean[][] data) {
         boolean result = true;
-        int n = data.length - 1;
-
         for (int i = 0; i < data.length; i++) {
-            if (data.length % 2 != 0) {
-                if (data[i][i] != data[i][n]) {
-                    result = false;
-                    break;
-                } else {
-                    n--;
-                }
-            } else if (data.length % 2 == 0) {
-                if ((data[i][i] != data[i + 1][i + 1]) || (data[i][n] != data[i + 1][n - 1])) {
-                    result = false;
-                    break;
-                } else {
-                    if (data.length == i + 2) {
-                        break;
-                    }
-                    n--;
-                }
+            //Проверка 1 диагонали на равенство 1-го значения остальным
+            if (data[0][0] != data[i][i]) {
+                result = false;
+                break;
             }
 
+            //Проверка 2 диагонали на равенство 1-го значения остальным
+            if (data[0][data.length - 1] != data[i][data.length - 1 - i]) {
+                result = false;
+                break;
+            }
+
+            //Проверка для нечетного числа элементов в массиве
+            if (data.length % 2 != 0) {
+                if (data[0][0] != data[data.length - 1][data.length - 1]) {
+                    result = false;
+                    break;
+                }
+            }
         }
         return result;
     }
