@@ -17,24 +17,13 @@ public class MatrixCheck {
     public boolean mono(boolean[][] data) {
         boolean result = true;
         for (int i = 0; i < data.length; i++) {
-            //Проверка 1 диагонали на равенство 1-го значения остальным
+            //Проверка 1-й, потом 2-й диагонали на равенство 1-го значения диагонали остальным
             if (data[0][0] != data[i][i]) {
                 result = false;
                 break;
-            }
-
-            //Проверка 2 диагонали на равенство 1-го значения остальным
-            if (data[0][data.length - 1] != data[i][data.length - 1 - i]) {
+            } else if (data[0][data.length - 1] != data[i][data.length - 1 - i]) {
                 result = false;
                 break;
-            }
-
-            //Проверка для нечетного числа элементов в массиве
-            if (data.length % 2 != 0) {
-                if (data[0][0] != data[data.length - 1][data.length - 1]) {
-                    result = false;
-                    break;
-                }
             }
         }
         return result;
