@@ -17,13 +17,13 @@ public class FindLoop {
      * @return index of array's element
      */
     public int indexOf(int[] data, int el) {
-        int rst = -1;
+        int resalt = -1;
         for (int index = 0; index < data.length; index++) {
             if (data[index] == el) {
-                rst = index;
+                resalt = index;
                 break;
             }
         }
-        return rst;
+        return resalt;
     }
 }

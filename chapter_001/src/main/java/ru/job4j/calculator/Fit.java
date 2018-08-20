@@ -10,17 +10,17 @@ public class Fit {
     /**
      * Contains the value subtracted from the man's height
      */
-    private int paramForMan = 100;
+    private int man = 100;
 
     /**
      * CContains the value subtracted from the woman's height
      */
-    private int paramForWoman = 110;
+    private int woman = 110;
 
     /**
      * Contains the general multiplier
      */
-    private double generalMultiplier = 1.15;
+    private double multiplier = 1.15;
 
     /**
      * Method manWeight Идеальный вес для мужщины.
@@ -28,7 +28,7 @@ public class Fit {
      * @return идеальный вес.
      */
     public double manWeight(double height) {
-        return (height - paramForMan) * generalMultiplier;
+        return (height - man) * multiplier;
     }
 
     /**
@@ -37,6 +37,6 @@ public class Fit {
      * @return идеальный вес.
      */
     public double womanWeight(double height) {
-        return (height - paramForWoman) * generalMultiplier;
+        return (height - woman) * multiplier;
     }
 }

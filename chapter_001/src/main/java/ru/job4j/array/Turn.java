@@ -15,11 +15,11 @@ public class Turn {
      * @return inverted array
      */
     public int[] turn(int[] array) {
-        for (int i = 0; i < array.length / 2; i++) {
-            int temp = array[i];
-            int lastIndex = array.length - (i + 1);
-            array[i] = array[lastIndex];
-            array[lastIndex] = temp;
+        for (int index = 0; index < array.length / 2; index++) {
+            int temp = array[index];
+            int last = array.length - (index + 1);
+            array[index] = array[last];
+            array[last] = temp;
         }
         return array;
     }

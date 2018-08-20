@@ -16,17 +16,17 @@ public class BubbleSort {
      */
     public int[] sort(int[] array) {
         while (true) {
-            int howManyTimes = array.length - 1;
-            for (int i = 0; i < array.length - 1; i++) {
-                if (array[i] > array[i + 1]) {
-                    int temp = array[i];
-                    array[i] = array[i + 1];
-                    array[i + 1] = temp;
+            int couples = array.length - 1;
+            for (int index = 0; index < array.length - 1; index++) {
+                if (array[index] > array[index + 1]) {
+                    int temp = array[index];
+                    array[index] = array[index + 1];
+                    array[index + 1] = temp;
                 } else {
-                    howManyTimes--;
+                    couples--;
                 }
             }
-            if (howManyTimes == 0) {
+            if (couples == 0) {
                 break;
             }
         }

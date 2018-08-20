@@ -84,15 +84,15 @@ public class Logic3T {
      */
     public boolean hasGap() {
         if (!this.isWinnerX() && !this.isWinnerO()) {
-            int countOfFillCells = 0;
+            int count = 0;
             for (int out = 0; out < this.table.length; out++) {
                 for (int in = 0; in < this.table.length; in++) {
                     if (this.table[out][in].hasMarkX() || this.table[out][in].hasMarkO()) {
-                        countOfFillCells++;
+                        count++;
                     }
                 }
             }
-            if (countOfFillCells == 9) {
+            if (count == 9) {
                 return false;
             }
         }

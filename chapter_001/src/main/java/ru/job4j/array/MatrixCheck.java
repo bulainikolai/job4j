@@ -16,12 +16,11 @@ public class MatrixCheck {
      */
     public boolean mono(boolean[][] data) {
         boolean result = true;
-        for (int i = 0; i < data.length; i++) {
-            //Проверка 1-й, потом 2-й диагонали на равенство 1-го значения диагонали остальным
-            if (data[0][0] != data[i][i]) {
+        for (int index = 0; index < data.length; index++) {
+            if (data[0][0] != data[index][index]) {
                 result = false;
                 break;
-            } else if (data[0][data.length - 1] != data[i][data.length - 1 - i]) {
+            } else if (data[0][data.length - 1] != data[index][data.length - 1 - index]) {
                 result = false;
                 break;
             }

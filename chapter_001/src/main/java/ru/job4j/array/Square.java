@@ -15,11 +15,10 @@ public class Square {
      * @return array of squares of numbers
      */
     public int[] calculate(int bound) {
-        int[] rst = new int[bound];
-        // заполнить массив через цикл элементами от 1 до bound возведенными в квадрат
-        for (int i = 0, m = 1; i < bound; i++, m++) {
-            rst[i] = (int) Math.pow(m, 2);
+        int[] result = new int[bound];
+        for (int index = 0, m = 1; index < bound; index++, m++) {
+            result[index] = (int) Math.pow(m, 2);
         }
-        return rst;
+        return result;
     }
 }

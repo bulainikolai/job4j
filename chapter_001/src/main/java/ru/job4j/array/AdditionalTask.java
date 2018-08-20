@@ -18,16 +18,16 @@ public class AdditionalTask {
      * @return отсортированный массив
      */
     public int[] getNewArrayFromTwo(int[] first, int[] second) {
-        int countOfElements = first.length + second.length;
-        int[] result = Arrays.copyOf(first, countOfElements);
+        int count = first.length + second.length;
+        int[] result = Arrays.copyOf(first, count);
         System.arraycopy(second, 0, result, first.length, second.length);
         while (true) {
             int changes = result.length - 1;
-            for (int i = 0; i < result.length - 1; i++) {
-                if (result[i] > result[i + 1]) {
-                    int temp = result[i];
-                    result[i] = result[i + 1];
-                    result[i + 1] = temp;
+            for (int index = 0; index < result.length - 1; index++) {
+                if (result[index] > result[index + 1]) {
+                    int temp = result[index];
+                    result[index] = result[index + 1];
+                    result[index + 1] = temp;
                 } else {
                     changes--;
                 }

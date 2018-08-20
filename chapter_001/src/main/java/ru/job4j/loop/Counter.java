@@ -16,10 +16,10 @@ public class Counter {
      * @return sum of even numbers from start to finish
      */
     public int add(int start, int finish) {
-        int evenNumber = (start % 2 != 0) ? start + 1 : start;
-        for (int i = evenNumber + 2; i <= finish; i += 2) {
-            evenNumber += i;
+        int even = (start % 2 != 0) ? start + 1 : start;
+        for (int i = even + 2; i <= finish; i += 2) {
+            even += i;
         }
-        return evenNumber;
+        return even;
     }
 }
