@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 public class Logic3T {
 
     /**
-     *
+     * Contain array with empty cells
      */
     private final Figure3T[][] table;
 
@@ -31,7 +31,7 @@ public class Logic3T {
      * @param startY coordinate Y of start dot
      * @param deltaX step of movement along the x-axis
      * @param deltaY step of movement along the y-axis
-     * @return
+     * @return true if model with 3 cells true
      */
     public boolean fillBy(Predicate<Figure3T> predicate, int startX, int startY, int deltaX, int deltaY) {
         boolean result = true;
@@ -80,22 +80,16 @@ public class Logic3T {
 
     /**
      * Method hasGap checks for empty cells
-     * @return
+     * @return true if anyone cell empty
      */
     public boolean hasGap() {
-        if (!this.isWinnerX() && !this.isWinnerO()) {
-            int count = 0;
-            for (int out = 0; out < this.table.length; out++) {
-                for (int in = 0; in < this.table.length; in++) {
-                    if (this.table[out][in].hasMarkX() || this.table[out][in].hasMarkO()) {
-                        count++;
-                    }
+        for (int out = 0; out < this.table.length; out++) {
+            for (int in = 0; in < this.table.length; in++) {
+                if (!this.table[out][in].hasMarkX() && !this.table[out][in].hasMarkO()) {
+                    return true;
                 }
             }
-            if (count == 9) {
-                return false;
-            }
         }
-        return true;
+        return false;
     }
 }

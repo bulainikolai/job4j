@@ -26,11 +26,23 @@ import javafx.stage.Stage;
 public class TicTacToe extends Application {
 
     /**
-     *
+     * Label on top
      */
     private static final String JOB4J = "Крестики-нолики www.job4j.ru";
+
+    /**
+     * Amount of rows and columns
+     */
     private final int size = 3;
+
+    /**
+     * Empty array of Figure3T objects
+     */
     private final Figure3T[][] cells = new Figure3T[size][size];
+
+    /**
+     * Object with checking logic
+     */
     private final Logic3T logic = new Logic3T(cells);
 
     /**
@@ -38,7 +50,7 @@ public class TicTacToe extends Application {
      * @param x value of the property X coordinate of the upper-left corner of the rectangle
      * @param y value of the property Y coordinate of the upper-left corner of the rectangle
      * @param size
-     * @return
+     * @return Rectangle
      */
     private Figure3T buildRectangle(int x, int y, int size) {
         Figure3T rect = new Figure3T();
@@ -56,7 +68,7 @@ public class TicTacToe extends Application {
      * @param x
      * @param y
      * @param size
-     * @return
+     * @return MarkO
      */
     private Group buildMarkO(double x, double y, int size) {
         Group group = new Group();
@@ -70,7 +82,7 @@ public class TicTacToe extends Application {
 
     /**
      * Method showAlert shows Alert
-     * @param message
+     * @param message contain message
      */
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -108,7 +120,7 @@ public class TicTacToe extends Application {
      * @param x
      * @param y
      * @param size
-     * @return
+     * @return buildMarkX
      */
     private Group buildMarkX(double x, double y, int size) {
         Group group = new Group();
@@ -128,7 +140,7 @@ public class TicTacToe extends Application {
     /**
      * Method buildMouseEvent
      * @param panel
-     * @return
+     * @return event
      */
     private EventHandler<MouseEvent> buildMouseEvent(Group panel) {
         return event -> {

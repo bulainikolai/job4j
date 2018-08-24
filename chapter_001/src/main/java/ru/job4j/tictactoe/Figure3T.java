@@ -14,9 +14,13 @@ import javafx.scene.shape.Rectangle;
 public class Figure3T extends Rectangle {
 
     /**
-     *
+     * Contain of default state of cell - no mark X
      */
     private boolean markX = false;
+
+    /**
+     * Contain of default state of cell - no mark Y
+     */
     private boolean markO = false;
 
     /**
