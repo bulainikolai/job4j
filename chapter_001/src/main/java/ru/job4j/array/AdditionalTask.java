@@ -15,26 +15,31 @@ public class AdditionalTask {
      * Method getNewArrayFromTwo создает из 2 отсортированных массивов 3-ий массив
      * @param first array
      * @param second array
-     * @return отсортированный массив
+     * @return отсортированный по возрастанию массив
      */
     public int[] getNewArrayFromTwo(int[] first, int[] second) {
         int count = first.length + second.length;
-        int[] result = Arrays.copyOf(first, count);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        while (true) {
-            int changes = result.length - 1;
-            for (int index = 0; index < result.length - 1; index++) {
-                if (result[index] > result[index + 1]) {
-                    int temp = result[index];
-                    result[index] = result[index + 1];
-                    result[index + 1] = temp;
+        int[] result = new int[count];
+        int elementOne = 0;
+        int elementTwo = 0;
+        int elementThree = 0;
+        while (elementThree < count) {
+            if (elementOne < first.length && elementTwo < second.length) {
+                if (first[elementOne] < second[elementTwo]) {
+                    result[elementThree] = first[elementOne];
+                    elementOne++;
                 } else {
-                    changes--;
+                    result[elementThree] = second[elementTwo];
+                    elementTwo++;
                 }
+            } else if (elementOne == first.length) {
+                result[elementThree] = second[elementTwo];
+                elementTwo++;
+            } else if (elementTwo == second.length) {
+                result[elementThree] = first[elementOne];
+                elementOne++;
             }
-            if (changes == 0) {
-                break;
-            }
+            elementThree++;
         }
         return result;
     }
