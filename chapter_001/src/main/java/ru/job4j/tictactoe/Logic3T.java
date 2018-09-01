@@ -57,14 +57,14 @@ public class Logic3T {
             if (
                     this.fillBy(Figure3T::hasMarkX, 0, index, 1, 0)
                     || this.fillBy(Figure3T::hasMarkX, index, 0, 0, 1)
-                    || this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 1)
-                    || this.fillBy(Figure3T::hasMarkX, this.table.length - 1, 0, -1, 1)
             ) {
                 result = true;
                 break;
             }
         }
-        return result;
+        return result
+                || this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 1)
+                || this.fillBy(Figure3T::hasMarkX, this.table.length - 1, 0, -1, 1);
     }
 
     /**
@@ -76,15 +76,15 @@ public class Logic3T {
         for (int index = 0; index < this.table.length; index++) {
             if (
                     this.fillBy(Figure3T::hasMarkO, 0, index, 1, 0)
-                            || this.fillBy(Figure3T::hasMarkO, index, 0, 0, 1)
-                            || this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 1)
-                            || this.fillBy(Figure3T::hasMarkO, this.table.length - 1, 0, -1, 1)
+                    || this.fillBy(Figure3T::hasMarkO, index, 0, 0, 1)
             ) {
                 result = true;
                 break;
             }
         }
-        return result;
+        return result
+                || this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 1)
+                || this.fillBy(Figure3T::hasMarkO, this.table.length - 1, 0, -1, 1);
     }
 
     /**
