@@ -19,8 +19,10 @@ public class Doctor extends Profession {
 
     /**
      * Method heal, healing an Patient
-     * @param obj
+     * @param patient
+     * @return diagnose object
      */
-    public void heal(Patient obj) {
+    public Diagnose heal(Patient patient) {
+        return new Diagnose();
     }
 }

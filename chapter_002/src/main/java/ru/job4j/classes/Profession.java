@@ -27,4 +27,12 @@ public class Profession {
         this.name = name;
         this.profession = profession;
     }
+
+    /**
+     * Method getName
+     * @return field name
+     */
+    public String getName() {
+        return this.name;
+    }
 }
