@@ -74,11 +74,7 @@ public class Tracker {
      * @return array of all added items
      */
     public Item[] getAll() {
-        Item[] result = new Item[this.position];
-        for (int index = 0; index < this.position; index++) {
-            result[index] = this.items[index];
-        }
-        return result;
+        return Arrays.copyOf(this.items, this.position);
     }
 
     /**
@@ -89,6 +85,7 @@ public class Tracker {
     public void replace(String id, Item item) {
         for (int index = 0; index < this.position; index++) {
             if (this.items[index] != null && this.items[index].getId().equals(id)) {
+                item.setId(id);
                 this.items[index] = item;
                 break;
             }
