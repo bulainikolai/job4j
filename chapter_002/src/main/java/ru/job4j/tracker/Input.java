@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.*;
+
 /**
  * Input
  *
@@ -15,4 +17,12 @@ public interface Input {
      * @return answer
      */
     String ask(String question);
+
+    /**
+     * Method ask get point of menu
+     * @param question about select
+     * @param range count of available points of menu
+     * @return point of menu
+     */
+    int ask(String question, List<Integer> range);
 }
