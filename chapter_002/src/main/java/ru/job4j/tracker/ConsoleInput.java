@@ -12,14 +12,9 @@ import java.util.*;
 public class ConsoleInput implements Input {
 
     /**
-     * Contains first object of Scanner
+     * Contains object of Scanner
      */
-    private Scanner scannerFirst = new Scanner(System.in);
-
-    /**
-     * Contains second object of Scanner
-     */
-    private Scanner scannerSecond = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     /**
      * Method ask get information from user
@@ -28,7 +23,7 @@ public class ConsoleInput implements Input {
      */
     public String ask(String question) {
         System.out.print(question);
-        return scannerFirst.nextLine();
+        return scanner.nextLine();
     }
 
     /**
@@ -37,12 +32,8 @@ public class ConsoleInput implements Input {
      * @param range count of available points of menu
      * @return point of menu
      */
-    public int ask(String question, List<Integer> range) {
-        int result;
-        do {
-            System.out.print(question);
-            result = scannerSecond.nextInt();
-        } while (result > (range.size() - 1));
+    public String ask(String question, List<Integer> range) {
+        String result = this.ask(question);
         return result;
     }
 }

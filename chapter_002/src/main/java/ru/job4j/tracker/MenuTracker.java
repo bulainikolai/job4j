@@ -25,7 +25,7 @@ public class MenuTracker {
     private List<UserAction> actions = new ArrayList<>();
 
     /**
-     * Конструктор.
+     * Конструктор с параметрами.
      *
      * @param input   объект типа Input
      * @param tracker объект типа Tracker
@@ -40,8 +40,20 @@ public class MenuTracker {
      *
      * @return длину массива
      */
-    public int getActionsLength() {
+    private int getActionsLength() {
         return this.actions.size();
+    }
+
+    /**
+     * Method getRange get List of menu's points
+     * @return list of menu's points
+     */
+    public List<Integer> getRange() {
+        List<Integer> range = new ArrayList<>();
+        for (int i = 0; i < this.getActionsLength(); i++) {
+            range.add(i);
+        }
+        return range;
     }
 
     /**
@@ -81,7 +93,7 @@ public class MenuTracker {
      * Method showInfo help print
      * @param item object, which data will print
      */
-    public static void showInfo(Item item) {
+    private void showInfo(Item item) {
         String[] comments = item.getComments();
         System.out.println("ID: " + item.getId());
         System.out.println("Name: " + item.getName());
@@ -383,7 +395,15 @@ class FindItemById implements UserAction {
         String id = input.ask("Введите id искомой заявки: ");
         Item item = tracker.findById(id);
         if (item != null) {
-            MenuTracker.showInfo(item);
+            String[] comments = item.getComments();
+            System.out.println("ID: " + item.getId());
+            System.out.println("Name: " + item.getName());
+            System.out.println("Description: " + item.getDescription());
+            for (String comment: comments) {
+                if (comment != null) {
+                    System.out.println("Comment: "  + comment);
+                }
+            }
         } else {
             System.out.println("----------------Заявки отсутствуют--------------");
         }
@@ -445,7 +465,15 @@ class FindItemsByName implements UserAction {
             int number = 1;
             for (Item item: items) {
                 System.out.println(number);
-                MenuTracker.showInfo(item);
+                String[] comments = item.getComments();
+                System.out.println("ID: " + item.getId());
+                System.out.println("Name: " + item.getName());
+                System.out.println("Description: " + item.getDescription());
+                for (String comment: comments) {
+                    if (comment != null) {
+                        System.out.println("Comment: "  + comment);
+                    }
+                }
                 number++;
             }
         } else {

@@ -24,5 +24,5 @@ public interface Input {
      * @param range count of available points of menu
      * @return point of menu
      */
-    int ask(String question, List<Integer> range);
+    String ask(String question, List<Integer> range);
 }
