@@ -41,7 +41,7 @@ public class StartUI {
         List<Integer> range = menu.getRange();
         do {
             menu.show();
-            menu.select(Integer.valueOf(input.ask("select: ", range)));
+            menu.select(input.ask("select: ", range));
         } while (!"y".equals(this.input.ask("Exit?(y): ")));
     }
 
@@ -50,6 +50,6 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new  ValidateInput(), new Tracker()).init();
     }
 }

@@ -32,8 +32,19 @@ public class ConsoleInput implements Input {
      * @param range count of available points of menu
      * @return point of menu
      */
-    public String ask(String question, List<Integer> range) {
-        String result = this.ask(question);
-        return result;
+    public int ask(String question, List<Integer> range) {
+        int key = Integer.valueOf(this.ask(question));
+        boolean exist = false;
+        for (int value: range) {
+            if (value == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of menu range");
+        }
     }
 }
