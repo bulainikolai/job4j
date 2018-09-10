@@ -108,17 +108,7 @@ public class MenuTracker {
     /**
      * AddItem - action for adding items
      */
-    private class AddItem implements UserAction {
-
-        /**
-         * Contain point of menu for this action
-         */
-        private int pointMenu;
-
-        /**
-         * Contain message of menu for this action
-         */
-        private String message;
+    private class AddItem extends BaseAction {
 
         /**
          * Constructor
@@ -126,17 +116,7 @@ public class MenuTracker {
          * @param message
          */
         public AddItem(int pointMenu, String message) {
-            this.pointMenu = pointMenu;
-            this.message = message;
-        }
-
-        /**
-         * Method key() return unique number
-         * @return point of menu
-         */
-        @Override
-        public int key() {
-            return this.pointMenu;
+            super(pointMenu, message);
         }
 
         /**
@@ -155,28 +135,9 @@ public class MenuTracker {
             tracker.add(item);
             System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
         }
-
-        /**
-         * Method info return info about action and point in menu
-         * @return
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s.", this.key(), this.message);
-        }
     }
 
-    private class ShowItems implements UserAction {
-
-        /**
-         * Contain point of menu for this action
-         */
-        private int pointMenu;
-
-        /**
-         * Contain message of menu for this action
-         */
-        private String message;
+    private class ShowItems extends BaseAction {
 
         /**
          * Constructor
@@ -184,17 +145,7 @@ public class MenuTracker {
          * @param message
          */
         public ShowItems(int pointMenu, String message) {
-            this.pointMenu = pointMenu;
-            this.message = message;
-        }
-
-        /**
-         * Method key() return unique number
-         * @return point of menu
-         */
-        @Override
-        public int key() {
-            return this.pointMenu;
+            super(pointMenu, message);
         }
 
         /**
@@ -218,28 +169,9 @@ public class MenuTracker {
             }
             System.out.println("------------------------------------------------");
         }
-
-        /**
-         * Method info return info about action and point in menu
-         * @return
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s.", this.key(), this.message);
-        }
     }
 
-    private static class EditItem implements UserAction {
-
-        /**
-         * Contain point of menu for this action
-         */
-        private int pointMenu;
-
-        /**
-         * Contain message of menu for this action
-         */
-        private String message;
+    private static class EditItem extends BaseAction {
 
         /**
          * Constructor
@@ -247,17 +179,7 @@ public class MenuTracker {
          * @param message
          */
         public EditItem(int pointMenu, String message) {
-            this.pointMenu = pointMenu;
-            this.message = message;
-        }
-
-        /**
-         * Method key() return unique number
-         * @return point of menu
-         */
-        @Override
-        public int key() {
-            return this.pointMenu;
+            super(pointMenu, message);
         }
 
         /**
@@ -282,28 +204,9 @@ public class MenuTracker {
                 System.out.println("-----------Заявка с данным ID отсутствует!-----------");
             }
         }
-
-        /**
-         * Method info return info about action and point in menu
-         * @return
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s.", this.key(), this.message);
-        }
     }
 
-    private static class DeleteItem implements UserAction {
-
-        /**
-         * Contain point of menu for this action
-         */
-        private int pointMenu;
-
-        /**
-         * Contain message of menu for this action
-         */
-        private String message;
+    private static class DeleteItem extends BaseAction {
 
         /**
          * Constructor
@@ -311,17 +214,7 @@ public class MenuTracker {
          * @param message
          */
         public DeleteItem(int pointMenu, String message) {
-            this.pointMenu = pointMenu;
-            this.message = message;
-        }
-
-        /**
-         * Method key() return unique number
-         * @return point of menu
-         */
-        @Override
-        public int key() {
-            return this.pointMenu;
+            super(pointMenu, message);
         }
 
         /**
@@ -341,29 +234,10 @@ public class MenuTracker {
                 System.out.println("----------Заявка с данным ID отсутствует!----------");
             }
         }
-
-        /**
-         * Method info return info about action and point in menu
-         * @return
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s.", this.key(), this.message);
-        }
     }
 }
 
-class FindItemById implements UserAction {
-
-    /**
-     * Contain point of menu for this action
-     */
-    private int pointMenu;
-
-    /**
-     * Contain message of menu for this action
-     */
-    private String message;
+class FindItemById extends BaseAction {
 
     /**
      * Constructor
@@ -371,17 +245,7 @@ class FindItemById implements UserAction {
      * @param message
      */
     public FindItemById(int pointMenu, String message) {
-        this.pointMenu = pointMenu;
-        this.message = message;
-    }
-
-    /**
-     * Method key() return unique number
-     * @return point of menu
-     */
-    @Override
-    public int key() {
-        return this.pointMenu;
+        super(pointMenu, message);
     }
 
     /**
@@ -409,28 +273,9 @@ class FindItemById implements UserAction {
         }
         System.out.println("------------------------------------------------");
     }
-
-    /**
-     * Method info return info about action and point in menu
-     * @return
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s.", this.key(), this.message);
-    }
 }
 
-class FindItemsByName implements UserAction {
-
-    /**
-     * Contain point of menu for this action
-     */
-    private int pointMenu;
-
-    /**
-     * Contain message of menu for this action
-     */
-    private String message;
+class FindItemsByName extends BaseAction {
 
     /**
      * Constructor
@@ -438,17 +283,7 @@ class FindItemsByName implements UserAction {
      * @param message
      */
     public FindItemsByName(int pointMenu, String message) {
-        this.pointMenu = pointMenu;
-        this.message = message;
-    }
-
-    /**
-     * Method key() return unique number
-     * @return point of menu
-     */
-    @Override
-    public int key() {
-        return this.pointMenu;
+        super(pointMenu, message);
     }
 
     /**
@@ -481,28 +316,9 @@ class FindItemsByName implements UserAction {
         }
         System.out.println("------------------------------------------------");
     }
-
-    /**
-     * Method info return info about action and point in menu
-     * @return
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s.", this.key(), this.message);
-    }
 }
 
-class ExitProgram implements UserAction {
-
-    /**
-     * Contain point of menu for this action
-     */
-    private int pointMenu;
-
-    /**
-     * Contain message of menu for this action
-     */
-    private String message;
+class ExitProgram extends BaseAction {
 
     /**
      * Constructor
@@ -510,17 +326,7 @@ class ExitProgram implements UserAction {
      * @param message
      */
     public ExitProgram(int pointMenu, String message) {
-        this.pointMenu = pointMenu;
-        this.message = message;
-    }
-
-    /**
-     * Method key() return unique number
-     * @return point of menu
-     */
-    @Override
-    public int key() {
-        return this.pointMenu;
+        super(pointMenu, message);
     }
 
     /**
@@ -531,14 +337,5 @@ class ExitProgram implements UserAction {
     @Override
     public void execute(Input input, Tracker tracker) {
         System.out.println("All data will be lost!!!");
-    }
-
-    /**
-     * Method info return info about action and point in menu
-     * @return
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s.", this.key(), this.message);
     }
 }
