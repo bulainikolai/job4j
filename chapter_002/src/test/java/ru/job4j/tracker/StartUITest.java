@@ -62,7 +62,7 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
-        Input input = new StubInput(new String[]{"0", "test1", "desc1", "comment1", "n", "6", "y"});
+        Input input = new StubInput(new String[]{"0", "test1", "desc1", "comment1", "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.getAll()[0].getName(), is("test1"));
     }
@@ -81,9 +81,7 @@ public class StartUITest {
                                         "test replace",
                                         "заменили заявку",
                                         "новый коммент",
-                                        "n",
-                                        "6",
-                                        "y"
+                                        "6"
                             }
                         );
         new StartUI(input, tracker).init();
@@ -98,7 +96,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         tracker.add(new Item("test1", "desc1", System.currentTimeMillis()));
         tracker.add(new Item("test2", "desc2", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"1", "n", "6", "y"});
+        Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, tracker).init();
         String[] result = {tracker.getAll()[0].getName(), tracker.getAll()[1].getName()};
         assertThat(result, is(new String[] {"test1", "test2"}));
@@ -112,7 +110,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item firstItem = tracker.add(new Item("test1", "desc1", System.currentTimeMillis()));
         tracker.add(new Item("test2", "desc2", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"1", "n", "3", firstItem.getId(), "n", "1", "n", "6", "y"});
+        Input input = new StubInput(new String[]{"1", "3", firstItem.getId(), "1", "6"});
         new StartUI(input, tracker).init();
         String[] result = new String[1];
         Item[] allItems = tracker.getAll();
@@ -129,7 +127,7 @@ public class StartUITest {
     public void whenAddOneItemAndFindByIdThenGetSameItem() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test1", "desc1", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"4", item.getId(), "n", "6", "y"});
+        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.getAll()[0].getName(), is("test1"));
     }
@@ -143,7 +141,7 @@ public class StartUITest {
         Item firstItem = tracker.add(new Item("test1", "desc1", System.currentTimeMillis()));
         tracker.add(new Item("test1", "desc2", System.currentTimeMillis()));
         tracker.add(new Item("test2", "desc3", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"1", "n", "5", firstItem.getName(), "n", "6", "y"});
+        Input input = new StubInput(new String[]{"1", "5", firstItem.getName(), "6"});
         new StartUI(input, tracker).init();
         String[] result = {tracker.getAll()[0].getDescription(), tracker.getAll()[1].getDescription()};
         assertThat(result, is(new String[] {"desc1", "desc2"}));
@@ -156,7 +154,7 @@ public class StartUITest {
     public void whenAddOneItemThenShowAllThenGetItInBuffer() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test1", "desc1", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"1", "n", "6", "y"});
+        Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, tracker).init();
         assertThat(
                 new String(this.out.toByteArray()),
@@ -173,7 +171,7 @@ public class StartUITest {
                                 .add("Description: " + item.getDescription())
                                 .add("------------------------------------------------")
                                 .add(this.menu)
-                                .add("All data will be lost!!!")
+                                .add("Selected point 6. Exit from program.")
                                 .toString()
                 )
         );
@@ -186,7 +184,7 @@ public class StartUITest {
     public void whenAddOneItemAndFindItByNameThenGetItInBuffer() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test1", "desc1", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"5", item.getName(), "n", "6", "y"});
+        Input input = new StubInput(new String[]{"5", item.getName(), "6"});
         new StartUI(input, tracker).init();
         assertThat(
                 new String(this.out.toByteArray()),
@@ -203,7 +201,7 @@ public class StartUITest {
                                 .add("Description: " + item.getDescription())
                                 .add("------------------------------------------------")
                                 .add(this.menu)
-                                .add("All data will be lost!!!")
+                                .add("Selected point 6. Exit from program.")
                                 .toString()
                 )
         );
@@ -216,7 +214,7 @@ public class StartUITest {
     public void whenAddOneItemAndFindItByIdThenGetItInBuffer() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test1", "desc1", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"4", item.getId(), "n", "6", "y"});
+        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
         new StartUI(input, tracker).init();
         assertThat(
                 new String(this.out.toByteArray()),
@@ -232,7 +230,7 @@ public class StartUITest {
                                 .add("Description: " + item.getDescription())
                                 .add("------------------------------------------------")
                                 .add(this.menu)
-                                .add("All data will be lost!!!")
+                                .add("Selected point 6. Exit from program.")
                                 .toString()
                 )
         );

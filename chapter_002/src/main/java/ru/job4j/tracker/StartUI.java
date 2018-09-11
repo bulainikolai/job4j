@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +10,8 @@ import java.util.List;
  * @since 03.09.2018
  */
 public class StartUI {
+
+    private boolean working = true;
 
     /**
      * Получение данных от пользователя.
@@ -37,12 +38,16 @@ public class StartUI {
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        menu.fillActions();
+        menu.fillActions(this);
         List<Integer> range = menu.getRange();
         do {
             menu.show();
             menu.select(input.ask("select: ", range));
-        } while (!"y".equals(this.input.ask("Exit?(y): ")));
+        } while (this.working);
+    }
+
+    public void stop() {
+        this.working = false;
     }
 
     /**
