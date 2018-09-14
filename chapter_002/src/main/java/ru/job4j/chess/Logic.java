@@ -20,7 +20,14 @@ public class Logic {
         this.figures[this.index++] = figure;
     }
 
-    public boolean move(Cell source, Cell dest) {
+    /**
+     *
+     * @param source
+     * @param dest
+     * @return
+     */
+    public boolean move(Cell source, Cell dest) throws ImpossibleMoveException,
+            OccupiedWayException, FigureNotFoundException {
         boolean rst = false;
         int index = this.findBy(source);
         if (index != -1) {
@@ -33,6 +40,9 @@ public class Logic {
         return rst;
     }
 
+    /**
+     * Стирание массива с позициями фигур и обнуление счетчика
+     */
     public void clean() {
         for (int position = 0; position != this.figures.length; position++) {
             this.figures[position] = null;
@@ -40,6 +50,11 @@ public class Logic {
         this.index = 0;
     }
 
+    /**
+     * Метод вернет индекс массива figures, в котором лежит искомая фигура
+     * @param cell параметр фигуры типа Cell.A1 ????
+     * @return индекс в массиве для фигуры
+     */
     private int findBy(Cell cell) {
         int rst = -1;
         for (int index = 0; index != this.figures.length; index++) {
