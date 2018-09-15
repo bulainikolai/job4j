@@ -21,27 +21,32 @@ public class Logic {
     }
 
     /**
-     *
-     * @param source
-     * @param dest
-     * @return
+     * Метод перезаписывает элемент массива фигур новым объектом фигуры после хода
+     * @param source начальное положение двигающейся фигуры
+     * @param dest конечное положение двигающейся фигуры
+     * @return истину, если в массиве с положениями фигур перезаписан объект передвинутой фигуры
      */
     public boolean move(Cell source, Cell dest) throws ImpossibleMoveException,
             OccupiedWayException, FigureNotFoundException {
         boolean rst = false;
-        int index = this.findBy(source);
-        if (index != -1) {
+        try {
+            int index = this.findBy(source);
             Cell[] steps = this.figures[index].way(source, dest);
-            if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
-                rst = true;
-                this.figures[index] = this.figures[index].copy(dest);
-            }
+            this.allowableTarget(this.figures, steps);
+            rst = true;
+            this.figures[index] = this.figures[index].copy(dest);
+        } catch (FigureNotFoundException fnf) {
+            System.out.println("Figure not found");
+        } catch (OccupiedWayException owe) {
+            System.out.println("Way is occupied");
+        } catch (ImpossibleMoveException ime) {
+            System.out.println("Can't move by this way");
         }
         return rst;
     }
 
     /**
-     * Стирание массива с позициями фигур и обнуление счетчика
+     * Стирание массива со старыми позициями фигур и обнуление счетчика
      */
     public void clean() {
         for (int position = 0; position != this.figures.length; position++) {
@@ -52,8 +57,8 @@ public class Logic {
 
     /**
      * Метод вернет индекс массива figures, в котором лежит искомая фигура
-     * @param cell параметр фигуры типа Cell.A1 ????
-     * @return индекс в массиве для фигуры
+     * @param cell параметр фигуры типа Cell.A1
+     * @return индекс в массиве для искомой фигуры
      */
     private int findBy(Cell cell) {
         int rst = -1;
@@ -63,6 +68,30 @@ public class Logic {
                 break;
             }
         }
+        if (rst == -1) {
+            throw new FigureNotFoundException("Figure not found");
+        }
         return rst;
+    }
+
+    /**
+     * Проверка на допустимость хода, свободны ли клетки на пути хода
+     * @param figures массив фигур с их текущим положением на доске
+     * @param steps Массив шагов, которые предполагается совершить
+     * @return истина, если шаги, которыерые нужно сделать не заняты
+     */
+    private boolean allowableTarget(Figure[] figures, Cell[] steps) {
+        boolean result = true;
+        for (Cell step: steps) {
+            for (Figure figure : figures) {
+                if (figure.position().equals(step)) {
+                    result = false;
+                }
+            }
+        }
+        if (!result) {
+            throw new OccupiedWayException("Way is occupied");
+        }
+        return result;
     }
 }

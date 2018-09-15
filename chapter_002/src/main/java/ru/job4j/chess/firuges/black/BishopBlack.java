@@ -1,5 +1,6 @@
 package ru.job4j.chess.firuges.black;
 
+import ru.job4j.chess.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
@@ -44,52 +45,53 @@ public class BishopBlack implements Figure {
         int deltaY = dest.y - source.y;
         Cell[] steps = new Cell[Math.abs(deltaX)];
         Cell[] cells = Cell.values();
-        if (this.isDiagonal(source, dest)) {
-            int index = 0;
-            if (deltaX > 0 && deltaY > 0) {
-                for (Cell cell : cells) {
-                    if (source.x + index + 1 == cell.x && source.y + index + 1 == cell.y) {
-                        steps[index] = cell;
-                        index++;
-                        if (index == Math.abs(deltaX)) {
-                            break;
-                        }
+        int index = 0;
+        if (deltaX > 0 && deltaY > 0) {
+            for (Cell cell : cells) {
+                if (source.x + index + 1 == cell.x && source.y + index + 1 == cell.y) {
+                    steps[index] = cell;
+                    index++;
+                    if (index == Math.abs(deltaX)) {
+                        break;
                     }
                 }
             }
-            if (deltaX > 0 && deltaY < 0) {
-                for (Cell cell : cells) {
-                    if (source.x + index + 1 == cell.x && source.y - index - 1 == cell.y) {
-                        steps[index] = cell;
-                        index++;
-                        if (index == Math.abs(deltaX)) {
-                            break;
-                        }
+        }
+        if (deltaX > 0 && deltaY < 0) {
+            for (Cell cell : cells) {
+                if (source.x + index + 1 == cell.x && source.y - index - 1 == cell.y) {
+                    steps[index] = cell;
+                    index++;
+                    if (index == Math.abs(deltaX)) {
+                        break;
                     }
                 }
             }
-            if (deltaX < 0 && deltaY > 0) {
-                for (int number = cells.length - 1; number >= 0; number--) {
-                    if (source.x - index - 1 == cells[number].x && source.y + index + 1 == cells[number].y) {
-                        steps[index] = cells[number];
-                        index++;
-                        if (index == Math.abs(deltaX)) {
-                            break;
-                        }
+        }
+        if (deltaX < 0 && deltaY > 0) {
+            for (int number = cells.length - 1; number >= 0; number--) {
+                if (source.x - index - 1 == cells[number].x && source.y + index + 1 == cells[number].y) {
+                    steps[index] = cells[number];
+                    index++;
+                    if (index == Math.abs(deltaX)) {
+                        break;
                     }
                 }
             }
-            if (deltaX < 0 && deltaY < 0) {
-                for (int number = cells.length - 1; number >= 0; number--) {
-                    if (source.x - index - 1 == cells[number].x && source.y - index - 1 == cells[number].y) {
-                        steps[index] = cells[number];
-                        index++;
-                        if (index == Math.abs(deltaX)) {
-                            break;
-                        }
+        }
+        if (deltaX < 0 && deltaY < 0) {
+            for (int number = cells.length - 1; number >= 0; number--) {
+                if (source.x - index - 1 == cells[number].x && source.y - index - 1 == cells[number].y) {
+                    steps[index] = cells[number];
+                    index++;
+                    if (index == Math.abs(deltaX)) {
+                        break;
                     }
                 }
             }
+        }
+        if (!this.isDiagonal(source, dest)) {
+            throw new ImpossibleMoveException("Can't move by this way");
         }
         return steps;
     }
@@ -104,35 +106,18 @@ public class BishopBlack implements Figure {
         return new BishopBlack(dest);
     }
 
+    /**
+     * Проверка, ходит ли фигура по диагонали
+     * @param source начальноя положение фигуры
+     * @param dest целевое положение фигуры
+     * @return истину, если начальное положение и целевое положеие находятся на диагонали
+     */
     private boolean isDiagonal(Cell source, Cell dest) {
         boolean result = false;
-        if (source.y < dest.y && source.x < dest.x) {
-            int changeY = dest.y - source.y;
-            int changeX = dest.x - source.x;
-            if (changeY == changeX) {
-                result = true;
-            }
-        }
-        if (source.y > dest.y && source.x < dest.x) {
-            int changeY = source.y - dest.y;
-            int changeX = dest.x - source.x;
-            if (changeY == changeX) {
-                result = true;
-            }
-        }
-        if (source.y < dest.y && source.x > dest.x) {
-            int changeY = dest.y - source.y;
-            int changeX = source.x - dest.x;
-            if (changeY == changeX) {
-                result = true;
-            }
-        }
-        if (source.y > dest.y && source.x > dest.x) {
-            int changeY = source.y - dest.y;
-            int changeX = source.x - dest.x;
-            if (changeY == changeX) {
-                result = true;
-            }
+        int deltaX = dest.x - source.x;
+        int deltaY = dest.y - source.y;
+        if (Math.abs(deltaX) == Math.abs(deltaY)) {
+            result = true;
         }
         return result;
     }
