@@ -1,5 +1,6 @@
 package ru.job4j.chess.firuges;
 
+import ru.job4j.chess.ImpossibleMoveException;
 
 public interface Figure {
     /**
@@ -14,7 +15,7 @@ public interface Figure {
      * @param dest
      * @return
      */
-    Cell[] way(Cell source, Cell dest);
+    Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException;
 
     /**
      *

@@ -1,5 +1,6 @@
 package ru.job4j.chess.firuges.black;
 
+import ru.job4j.chess.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
@@ -22,7 +23,10 @@ public class KnightBlack implements Figure {
     }
 
     @Override
-    public Cell[] way(Cell source, Cell dest) {
+    public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
+        if (!isTarget(source, dest)) {
+            throw new ImpossibleMoveException("Can't move by this way");
+        }
         return new Cell[] { dest };
     }
 
@@ -30,4 +34,10 @@ public class KnightBlack implements Figure {
     public Figure copy(Cell dest) {
         return new KnightBlack(dest);
     }
+
+    private boolean isTarget(Cell source, Cell dest) {
+        return (Math.abs(dest.x - source.x) == 1 && Math.abs(dest.y - source.y) == 2)
+                || (Math.abs(dest.x - source.x) == 2 && Math.abs(dest.y - source.y) == 1);
+    }
 }
+

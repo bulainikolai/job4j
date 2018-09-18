@@ -40,58 +40,37 @@ public class BishopBlack implements Figure {
      * @return
      */
     @Override
-    public Cell[] way(Cell source, Cell dest) {
-        int deltaX = dest.x - source.x;
-        int deltaY = dest.y - source.y;
-        Cell[] steps = new Cell[Math.abs(deltaX)];
-        Cell[] cells = Cell.values();
-        int index = 0;
-        if (deltaX > 0 && deltaY > 0) {
-            for (Cell cell : cells) {
-                if (source.x + index + 1 == cell.x && source.y + index + 1 == cell.y) {
-                    steps[index] = cell;
-                    index++;
-                    if (index == Math.abs(deltaX)) {
-                        break;
-                    }
-                }
-            }
-        }
-        if (deltaX > 0 && deltaY < 0) {
-            for (Cell cell : cells) {
-                if (source.x + index + 1 == cell.x && source.y - index - 1 == cell.y) {
-                    steps[index] = cell;
-                    index++;
-                    if (index == Math.abs(deltaX)) {
-                        break;
-                    }
-                }
-            }
-        }
-        if (deltaX < 0 && deltaY > 0) {
-            for (int number = cells.length - 1; number >= 0; number--) {
-                if (source.x - index - 1 == cells[number].x && source.y + index + 1 == cells[number].y) {
-                    steps[index] = cells[number];
-                    index++;
-                    if (index == Math.abs(deltaX)) {
-                        break;
-                    }
-                }
-            }
-        }
-        if (deltaX < 0 && deltaY < 0) {
-            for (int number = cells.length - 1; number >= 0; number--) {
-                if (source.x - index - 1 == cells[number].x && source.y - index - 1 == cells[number].y) {
-                    steps[index] = cells[number];
-                    index++;
-                    if (index == Math.abs(deltaX)) {
-                        break;
-                    }
-                }
-            }
-        }
+    public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         if (!this.isDiagonal(source, dest)) {
             throw new ImpossibleMoveException("Can't move by this way");
+        }
+        int deltaX = Integer.compare(source.x, dest.x);
+        int deltaY = Integer.compare(source.y, dest.y);
+        int changeX = dest.x - source.x;
+        int changeY = dest.y - source.y;
+        int point = 0;
+        Cell[] steps = new Cell[Math.abs(dest.x - source.x)];
+        Cell[] cells = Cell.values();
+        for (int index = 0; index < cells.length; index++) {
+            if ((deltaX > 0 && deltaY > 0) || (deltaX > 0 && deltaY < 0))  {
+                if ((source.x + changeX == cells[index].x) && (source.y + changeY == cells[index].y)) {
+                    steps[point] = cells[index];
+                    changeX = changeX + deltaX;
+                    changeY = changeY + deltaY;
+                    point++;
+                }
+            }
+            if ((deltaX < 0 && deltaY > 0) || (deltaX < 0 && deltaY < 0))  {
+                if (dest.x - changeX - deltaX == cells[index].x && dest.y - changeY - deltaY == cells[index].y) {
+                    steps[point] = cells[index];
+                    changeX = changeX + deltaX;
+                    changeY = changeY + deltaY;
+                    point++;
+                }
+            }
+            if (point == steps.length) {
+                break;
+            }
         }
         return steps;
     }
@@ -113,12 +92,6 @@ public class BishopBlack implements Figure {
      * @return истину, если начальное положение и целевое положеие находятся на диагонали
      */
     private boolean isDiagonal(Cell source, Cell dest) {
-        boolean result = false;
-        int deltaX = dest.x - source.x;
-        int deltaY = dest.y - source.y;
-        if (Math.abs(deltaX) == Math.abs(deltaY)) {
-            result = true;
-        }
-        return result;
+        return Math.abs(dest.x - source.x) == Math.abs(dest.y - source.y);
     }
 }

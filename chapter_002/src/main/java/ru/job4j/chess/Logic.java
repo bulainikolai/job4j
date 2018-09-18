@@ -29,19 +29,22 @@ public class Logic {
     public boolean move(Cell source, Cell dest) throws ImpossibleMoveException,
             OccupiedWayException, FigureNotFoundException {
         boolean rst = false;
-        try {
-            int index = this.findBy(source);
+//        try {
+        int index = this.findBy(source);
+        if (index != -1) {
             Cell[] steps = this.figures[index].way(source, dest);
-            this.allowableTarget(this.figures, steps);
-            rst = true;
-            this.figures[index] = this.figures[index].copy(dest);
-        } catch (FigureNotFoundException fnf) {
-            System.out.println("Figure not found");
-        } catch (OccupiedWayException owe) {
-            System.out.println("Way is occupied");
-        } catch (ImpossibleMoveException ime) {
-            System.out.println("Can't move by this way");
+            if (steps.length > 0 && this.allowableTarget(steps)) {
+                rst = true;
+                this.figures[index] = this.figures[index].copy(dest);
+            }
         }
+//        } catch (FigureNotFoundException fnf) {
+//            System.out.println("Figure not found");
+//        } catch (OccupiedWayException owe) {
+//            System.out.println("Way is occupied");
+//        } catch (ImpossibleMoveException ime) {
+//            System.out.println("Can't move by this way");
+//        }
         return rst;
     }
 
@@ -60,7 +63,7 @@ public class Logic {
      * @param cell параметр фигуры типа Cell.A1
      * @return индекс в массиве для искомой фигуры
      */
-    private int findBy(Cell cell) {
+    private int findBy(Cell cell) throws FigureNotFoundException {
         int rst = -1;
         for (int index = 0; index != this.figures.length; index++) {
             if (this.figures[index] != null && this.figures[index].position().equals(cell)) {
@@ -76,14 +79,13 @@ public class Logic {
 
     /**
      * Проверка на допустимость хода, свободны ли клетки на пути хода
-     * @param figures массив фигур с их текущим положением на доске
      * @param steps Массив шагов, которые предполагается совершить
      * @return истина, если шаги, которыерые нужно сделать не заняты
      */
-    private boolean allowableTarget(Figure[] figures, Cell[] steps) {
+    private boolean allowableTarget(Cell[] steps) throws OccupiedWayException {
         boolean result = true;
         for (Cell step: steps) {
-            for (Figure figure : figures) {
+            for (Figure figure : this.figures) {
                 if (figure.position().equals(step)) {
                     result = false;
                 }
