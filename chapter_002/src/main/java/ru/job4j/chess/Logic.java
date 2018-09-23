@@ -29,22 +29,14 @@ public class Logic {
     public boolean move(Cell source, Cell dest) throws ImpossibleMoveException,
             OccupiedWayException, FigureNotFoundException {
         boolean rst = false;
-//        try {
         int index = this.findBy(source);
         if (index != -1) {
             Cell[] steps = this.figures[index].way(source, dest);
             if (steps.length > 0 && this.allowableTarget(steps)) {
-                rst = true;
                 this.figures[index] = this.figures[index].copy(dest);
+                rst = true;
             }
         }
-//        } catch (FigureNotFoundException fnf) {
-//            System.out.println("Figure not found");
-//        } catch (OccupiedWayException owe) {
-//            System.out.println("Way is occupied");
-//        } catch (ImpossibleMoveException ime) {
-//            System.out.println("Can't move by this way");
-//        }
         return rst;
     }
 

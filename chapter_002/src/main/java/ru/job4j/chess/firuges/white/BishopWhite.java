@@ -29,30 +29,20 @@ public class BishopWhite implements Figure {
         }
         int deltaX = Integer.compare(source.x, dest.x);
         int deltaY = Integer.compare(source.y, dest.y);
-        int changeX = dest.x - source.x;
-        int changeY = dest.y - source.y;
+        int changeX = 0;
+        int changeY = 0;
         int point = 0;
         Cell[] steps = new Cell[Math.abs(dest.x - source.x)];
         Cell[] cells = Cell.values();
-        for (int index = 0; index < cells.length; index++) {
-            if ((deltaX > 0 && deltaY > 0) || (deltaX > 0 && deltaY < 0))  {
-                if ((source.x + changeX == cells[index].x) && (source.y + changeY == cells[index].y)) {
+        while (point < steps.length) {
+            for (int index = 0; index < cells.length; index++) {
+                if ((dest.x + changeX == cells[index].x) && (dest.y + changeY == cells[index].y)) {
                     steps[point] = cells[index];
                     changeX = changeX + deltaX;
                     changeY = changeY + deltaY;
                     point++;
+                    break;
                 }
-            }
-            if ((deltaX < 0 && deltaY > 0) || (deltaX < 0 && deltaY < 0))  {
-                if (dest.x - changeX - deltaX == cells[index].x && dest.y - changeY - deltaY == cells[index].y) {
-                    steps[point] = cells[index];
-                    changeX = changeX + deltaX;
-                    changeY = changeY + deltaY;
-                    point++;
-                }
-            }
-            if (point == steps.length) {
-                break;
             }
         }
         return steps;
