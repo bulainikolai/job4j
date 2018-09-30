@@ -27,7 +27,7 @@ public class KnightWhite implements Figure {
         if (!isTarget(source, dest)) {
             throw new ImpossibleMoveException("Can't move by this way");
         }
-        return new Cell[] { dest };
+        return new Cell[] {dest};
     }
 
     @Override

@@ -30,12 +30,10 @@ public class Logic {
             OccupiedWayException, FigureNotFoundException {
         boolean rst = false;
         int index = this.findBy(source);
-        if (index != -1) {
-            Cell[] steps = this.figures[index].way(source, dest);
-            if (steps.length > 0 && this.allowableTarget(steps)) {
-                this.figures[index] = this.figures[index].copy(dest);
-                rst = true;
-            }
+        Cell[] steps = this.figures[index].way(source, dest);
+        if (steps.length > 0 && this.allowableTarget(steps)) {
+            this.figures[index] = this.figures[index].copy(dest);
+            rst = true;
         }
         return rst;
     }
