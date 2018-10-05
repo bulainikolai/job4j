@@ -2,43 +2,44 @@ package ru.job4j.addTask;
 
 import java.util.Arrays;
 
+/**
+ * CoffeMachine
+ *
+ * @author Nikolai Bulai (turisto777.nb@gmail.com)
+ * @version 1
+ * @since 05.10.2018
+ */
 public class CoffeMachine {
+
+    /**
+     * Method changes give some count of coins
+     * @param value we pay
+     * @param price we have to pay
+     * @return array of coins
+     */
     public int[] changes(int value, int price) {
         int change = value - price;
+        int[] money = {1, 2, 5, 10};
         int[] result = new int[0];
-        int index = 0;
-        boolean stop = true;
-        while (stop) {
-            if (change - 10 >= 0) {
-                result = Arrays.copyOf(result, result.length + 1);
-                result[index] = 10;
-                change -= 10;
-                index++;
-                continue;
+        int step = 0;
+        boolean stop = false;
+        while (!stop) {
+            int check = 0;
+            for (int index = 0; index < money.length; index++) {
+                if (change - money[index] >= 0) {
+                    check = money[index];
+                } else {
+                    break;
+                }
             }
-            if (change - 5 >= 0) {
+            if (check != 0) {
                 result = Arrays.copyOf(result, result.length + 1);
-                result[index] = 5;
-                change -= 5;
-                index++;
-                continue;
-            }
-            if (change - 2 >= 0) {
-                result = Arrays.copyOf(result, result.length + 1);
-                result[index] = 2;
-                change -= 2;
-                index++;
-                continue;
-            }
-            if (change - 1 >= 0) {
-                result = Arrays.copyOf(result, result.length + 1);
-                result[index] = 1;
-                change -= 1;
-                index++;
-                continue;
+                result[step] = check;
+                change -= check;
+                step++;
             }
             if (change == 0) {
-                stop = false;
+                stop = true;
             }
         }
         return result;
