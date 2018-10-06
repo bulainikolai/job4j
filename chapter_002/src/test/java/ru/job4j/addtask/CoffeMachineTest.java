@@ -1,4 +1,4 @@
-package ru.job4j.addTask;
+package ru.job4j.addtask;
 
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
