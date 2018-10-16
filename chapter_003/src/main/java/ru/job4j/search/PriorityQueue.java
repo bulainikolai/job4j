@@ -23,12 +23,10 @@ public class PriorityQueue {
      */
     public void put(Task task) {
         int correctInd = this.tasks.size();
-        if (!this.tasks.isEmpty()) {
-            for (int index = 0; index < this.tasks.size(); index++) {
-                if (this.tasks.get(index).getPriority() > task.getPriority()) {
-                    correctInd = index;
-                    break;
-                }
+        for (int index = 0; index < this.tasks.size(); index++) {
+            if (this.tasks.get(index).getPriority() > task.getPriority()) {
+                correctInd = index;
+                break;
             }
         }
         this.tasks.add(correctInd, task);
