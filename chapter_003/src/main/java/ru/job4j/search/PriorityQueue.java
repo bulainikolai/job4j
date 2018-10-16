@@ -13,7 +13,7 @@ public class PriorityQueue {
     /**
      * Contains LinkedList of Task's objects
      */
-    private LinkedList<Task> tasks = new LinkedList<>();
+    public LinkedList<Task> tasks = new LinkedList<>();
 
     /**
      * Метод должен вставлять в нужную позицию элемент.
@@ -22,21 +22,20 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        if (this.tasks.size() == 0) {
-            this.tasks.add(task);
-        } else {
-            int correctInd = 0;
-            for (int index = 0; index < this.tasks.size(); index++) {
-                if (this.tasks.get(index).getPriority() < task.getPriority()) {
-                    correctInd = index;
+        int correctInd = 0;
+        if (!this.tasks.isEmpty()) {
+            if (this.tasks.getLast().getPriority() < task.getPriority()) {
+                correctInd = this.tasks.indexOf(this.tasks.getLast()) + 1;
+            } else {
+                for (Task addedTask: this.tasks) {
+                    if (addedTask.getPriority() > task.getPriority()) {
+                        correctInd = this.tasks.indexOf(addedTask);
+                        break;
+                    }
                 }
             }
-            if (this.tasks.size() == 1) {
-                this.tasks.add(correctInd, task);
-            } else {
-                this.tasks.add(correctInd + 1, task);
-            }
         }
+        this.tasks.add(correctInd, task);
     }
 
     /**
