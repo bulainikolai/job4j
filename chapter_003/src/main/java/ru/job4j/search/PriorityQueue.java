@@ -22,16 +22,12 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        int correctInd = 0;
+        int correctInd = this.tasks.size();
         if (!this.tasks.isEmpty()) {
-            if (this.tasks.getLast().getPriority() < task.getPriority()) {
-                correctInd = this.tasks.indexOf(this.tasks.getLast()) + 1;
-            } else {
-                for (Task addedTask: this.tasks) {
-                    if (addedTask.getPriority() > task.getPriority()) {
-                        correctInd = this.tasks.indexOf(addedTask);
-                        break;
-                    }
+            for (int index = 0; index < this.tasks.size(); index++) {
+                if (this.tasks.get(index).getPriority() > task.getPriority()) {
+                    correctInd = index;
+                    break;
                 }
             }
         }
