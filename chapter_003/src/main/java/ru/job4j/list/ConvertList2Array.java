@@ -26,11 +26,8 @@ public class ConvertList2Array {
             for (int in = 0; in < cells; in++) {
                 if (itr.hasNext()) {
                     array[out][in] = itr.next();
-                } else {
-                    array[out][in] = 0;
                 }
             }
-
         }
         return array;
     }
