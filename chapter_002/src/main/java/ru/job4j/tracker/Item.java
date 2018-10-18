@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Item
@@ -33,7 +34,7 @@ public class Item {
     /**
      * Contains array of comments of item
      */
-    private ArrayList<String> comments = new ArrayList<>();
+    private List<String> comments = new ArrayList<>();
 
     /**
      * Constructor for Item
@@ -91,7 +92,7 @@ public class Item {
      * Method getComments give the array of comments to item
      * @return array of comments
      */
-    public ArrayList<String> getComments() {
+    public List<String> getComments() {
         return this.comments;
     }
 

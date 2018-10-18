@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -114,7 +115,7 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"1", "3", firstItem.getId(), "1", "6"});
         new StartUI(input, tracker).init();
         String[] result = new String[1];
-        ArrayList<Item> allItems = tracker.getAll();
+        List<Item> allItems = tracker.getAll();
         for (int index = 0; index < allItems.size(); index++) {
             result[index] = allItems.get(index).getName();
         }

@@ -94,7 +94,7 @@ public class MenuTracker {
      * @param item object, which data will print
      */
     private void showInfo(Item item) {
-        ArrayList<String> comments = item.getComments();
+        List<String> comments = item.getComments();
         System.out.println("ID: " + item.getId());
         System.out.println("Name: " + item.getName());
         System.out.println("Description: " + item.getDescription());
@@ -154,7 +154,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Отображение списка всех заявок --------------");
-            ArrayList<Item> items = tracker.getAll();
+            List<Item> items = tracker.getAll();
             if (items.size() > 0) {
                 int number = 1;
                 for (Item item: items) {
@@ -257,7 +257,7 @@ class FindItemById extends BaseAction {
         String id = input.ask("Введите id искомой заявки: ");
         Item item = tracker.findById(id);
         if (item != null) {
-            ArrayList<String> comments = item.getComments();
+            List<String> comments = item.getComments();
             System.out.println("ID: " + item.getId());
             System.out.println("Name: " + item.getName());
             System.out.println("Description: " + item.getDescription());
@@ -291,12 +291,12 @@ class FindItemsByName extends BaseAction {
     public void execute(Input input, Tracker tracker) {
         System.out.println("------------ Поиск заявки по Имени --------------");
         String name = input.ask("Введите имя искомой заявки: ");
-        ArrayList<Item> items = tracker.findByName(name);
+        List<Item> items = tracker.findByName(name);
         if (items.size() > 0) {
             int number = 1;
             for (Item item: items) {
                 System.out.println(number);
-                ArrayList<String> comments = item.getComments();
+                List<String> comments = item.getComments();
                 System.out.println("ID: " + item.getId());
                 System.out.println("Name: " + item.getName());
                 System.out.println("Description: " + item.getDescription());
