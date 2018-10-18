@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 /**
  * Item
  *
@@ -31,12 +33,7 @@ public class Item {
     /**
      * Contains array of comments of item
      */
-    private String[] comments = new String[30];
-
-    /**
-     * Contains number for new adding item
-     */
-    private int position = 0;
+    private ArrayList<String> comments = new ArrayList<>();
 
     /**
      * Constructor for Item
@@ -94,7 +91,7 @@ public class Item {
      * Method getComments give the array of comments to item
      * @return array of comments
      */
-    public String[] getComments() {
+    public ArrayList<String> getComments() {
         return this.comments;
     }
 
@@ -103,6 +100,6 @@ public class Item {
      * @param comment some string
      */
     public void setComments(String comment) {
-        this.comments[this.position++] = comment;
+        this.comments.add(comment);
     }
 }

@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.StringJoiner;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -64,7 +65,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"0", "test1", "desc1", "comment1", "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.getAll()[0].getName(), is("test1"));
+        assertThat(tracker.getAll().get(0).getName(), is("test1"));
     }
 
     /**
@@ -98,7 +99,7 @@ public class StartUITest {
         tracker.add(new Item("test2", "desc2", System.currentTimeMillis()));
         Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, tracker).init();
-        String[] result = {tracker.getAll()[0].getName(), tracker.getAll()[1].getName()};
+        String[] result = {tracker.getAll().get(0).getName(), tracker.getAll().get(1).getName()};
         assertThat(result, is(new String[] {"test1", "test2"}));
     }
 
@@ -113,9 +114,9 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"1", "3", firstItem.getId(), "1", "6"});
         new StartUI(input, tracker).init();
         String[] result = new String[1];
-        Item[] allItems = tracker.getAll();
-        for (int index = 0; index < allItems.length; index++) {
-            result[index] = allItems[index].getName();
+        ArrayList<Item> allItems = tracker.getAll();
+        for (int index = 0; index < allItems.size(); index++) {
+            result[index] = allItems.get(index).getName();
         }
         assertThat(result[0], is("test2"));
     }
@@ -129,7 +130,7 @@ public class StartUITest {
         Item item = tracker.add(new Item("test1", "desc1", System.currentTimeMillis()));
         Input input = new StubInput(new String[]{"4", item.getId(), "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.getAll()[0].getName(), is("test1"));
+        assertThat(tracker.getAll().get(0).getName(), is("test1"));
     }
 
     /**
@@ -143,7 +144,7 @@ public class StartUITest {
         tracker.add(new Item("test2", "desc3", System.currentTimeMillis()));
         Input input = new StubInput(new String[]{"1", "5", firstItem.getName(), "6"});
         new StartUI(input, tracker).init();
-        String[] result = {tracker.getAll()[0].getDescription(), tracker.getAll()[1].getDescription()};
+        String[] result = {tracker.getAll().get(0).getDescription(), tracker.getAll().get(1).getDescription()};
         assertThat(result, is(new String[] {"desc1", "desc2"}));
     }
 

@@ -94,14 +94,12 @@ public class MenuTracker {
      * @param item object, which data will print
      */
     private void showInfo(Item item) {
-        String[] comments = item.getComments();
+        ArrayList<String> comments = item.getComments();
         System.out.println("ID: " + item.getId());
         System.out.println("Name: " + item.getName());
         System.out.println("Description: " + item.getDescription());
         for (String comment: comments) {
-            if (comment != null) {
-                System.out.println("Comment: "  + comment);
-            }
+            System.out.println("Comment: "  + comment);
         }
     }
 
@@ -156,8 +154,8 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Отображение списка всех заявок --------------");
-            Item[] items = tracker.getAll();
-            if (items.length > 0) {
+            ArrayList<Item> items = tracker.getAll();
+            if (items.size() > 0) {
                 int number = 1;
                 for (Item item: items) {
                     System.out.println(number);
@@ -259,14 +257,12 @@ class FindItemById extends BaseAction {
         String id = input.ask("Введите id искомой заявки: ");
         Item item = tracker.findById(id);
         if (item != null) {
-            String[] comments = item.getComments();
+            ArrayList<String> comments = item.getComments();
             System.out.println("ID: " + item.getId());
             System.out.println("Name: " + item.getName());
             System.out.println("Description: " + item.getDescription());
             for (String comment: comments) {
-                if (comment != null) {
-                    System.out.println("Comment: "  + comment);
-                }
+                System.out.println("Comment: "  + comment);
             }
         } else {
             System.out.println("----------------Заявки отсутствуют--------------");
@@ -295,19 +291,17 @@ class FindItemsByName extends BaseAction {
     public void execute(Input input, Tracker tracker) {
         System.out.println("------------ Поиск заявки по Имени --------------");
         String name = input.ask("Введите имя искомой заявки: ");
-        Item[] items = tracker.findByName(name);
-        if (items.length > 0) {
+        ArrayList<Item> items = tracker.findByName(name);
+        if (items.size() > 0) {
             int number = 1;
             for (Item item: items) {
                 System.out.println(number);
-                String[] comments = item.getComments();
+                ArrayList<String> comments = item.getComments();
                 System.out.println("ID: " + item.getId());
                 System.out.println("Name: " + item.getName());
                 System.out.println("Description: " + item.getDescription());
                 for (String comment: comments) {
-                    if (comment != null) {
-                        System.out.println("Comment: "  + comment);
-                    }
+                    System.out.println("Comment: "  + comment);
                 }
                 number++;
             }

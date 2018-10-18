@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -14,12 +14,7 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private Item[] items = new Item[100];
-
-    /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
+    private ArrayList<Item> items = new ArrayList<>();
 
     /**
      * Contains object of class Random
@@ -39,7 +34,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        this.items.add(item);
         return item;
     }
 
@@ -73,8 +68,8 @@ public class Tracker {
      * Method getAll gives all items
      * @return array of all added items
      */
-    public Item[] getAll() {
-        return Arrays.copyOf(this.items, this.position);
+    public ArrayList<Item> getAll() {
+        return this.items;
     }
 
     /**
@@ -83,10 +78,10 @@ public class Tracker {
      * @param item new item instead of previous item
      */
     public void replace(String id, Item item) {
-        for (int index = 0; index < this.position; index++) {
-            if (this.items[index] != null && this.items[index].getId().equals(id)) {
+        for (int index = 0; index < this.items.size(); index++) {
+            if (!this.items.isEmpty() && this.items.get(index).getId().equals(id)) {
                 item.setId(id);
-                this.items[index] = item;
+                this.items.set(index, item);
                 break;
             }
         }
@@ -97,10 +92,9 @@ public class Tracker {
      * @param id it is id of deleting item
      */
     public void delete(String id) {
-        for (int index = 0; index < this.position; index++) {
-            if (this.items[index] != null && this.items[index].getId().equals(id)) {
-                System.arraycopy(this.items, index + 1, this.items, index, (this.position - 1) - index);
-                this.position--;
+        for (int index = 0; index < this.items.size(); index++) {
+            if (!this.items.isEmpty() && this.items.get(index).getId().equals(id)) {
+                this.items.remove(index);
                 break;
             }
         }
@@ -111,15 +105,13 @@ public class Tracker {
      * @param key name of i
      * @return array of items
      */
-    public Item[] findByName(String key) {
-        Item[] result = new Item[this.position];
-        int index = 0;
+    public ArrayList<Item> findByName(String key) {
+        ArrayList<Item> result = new ArrayList<>();
         for (Item item: this.items) {
             if (item != null && item.getName().equals(key)) {
-                result[index] = item;
-                index++;
+                result.add(item);
             }
         }
-        return Arrays.copyOf(result, index);
+        return result;
     }
 }
