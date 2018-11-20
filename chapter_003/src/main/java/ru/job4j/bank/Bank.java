@@ -34,12 +34,7 @@ public class Bank {
      * @param account
      */
     public void addAccountToUser(String passport, Account account) {
-        Set<Map.Entry<User, List<Account>>> users = this.data.entrySet();
-        for (Map.Entry<User, List<Account>> user : users) {
-            if (passport.equals(user.getKey().getPassport())) {
-                user.getValue().add(account);
-            }
-        }
+        this.data.get(this.getUserByPassport(passport)).add(account);
     }
 
     /**
@@ -48,12 +43,7 @@ public class Bank {
      * @param account
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        Set<Map.Entry<User, List<Account>>> users = this.data.entrySet();
-        for (Map.Entry<User, List<Account>> user : users) {
-            if (passport.equals(user.getKey().getPassport())) {
-                user.getValue().remove(account);
-            }
-        }
+        this.data.get(this.getUserByPassport(passport)).remove(account);
     }
 
     /**
@@ -62,14 +52,7 @@ public class Bank {
      * @return
      */
     public List<Account> getUserAccounts(String passport) {
-        Set<Map.Entry<User, List<Account>>> users = this.data.entrySet();
-        List<Account> result = new ArrayList<>();
-        for (Map.Entry<User, List<Account>> user : users) {
-            if (passport.equals(user.getKey().getPassport())) {
-                result = user.getValue();
-            }
-        }
-        return result;
+        return this.data.get(this.getUserByPassport(passport));
     }
 
     /**
@@ -91,22 +74,53 @@ public class Bank {
             double amount) {
 
         boolean result = false;
-        List<Account> sourceAccount = getUserAccounts(srcPassport);
-        List<Account> destAccount = getUserAccounts(destPassport);
-        if (!sourceAccount.isEmpty() && !destAccount.isEmpty()) {
-            int indexSource = sourceAccount.indexOf(new Account(0, srcRequisite));
-            int indexDest = destAccount.indexOf(new Account(0, dstRequisite));
-            if (indexSource != -1 && indexDest != -1) {
-                Account sAccount = sourceAccount.get(indexSource);
-                Account dAccount = destAccount.get(indexDest);
-                if (sAccount.getValue() > amount) {
-                    dAccount.setValue(dAccount.getValue() + amount);
-                    sAccount.setValue(sAccount.getValue() - amount);
-                    result = true;
-                }
-            }
+        Account sourceAccount = this.getAccountByRequisiteFromUserPassport(srcPassport, srcRequisite);
+        Account destAccount = this.getAccountByRequisiteFromUserPassport(destPassport, dstRequisite);
+        if (
+                sourceAccount != null
+                && destAccount != null
+                && sourceAccount.getValue() > amount
+            ) {
+            sourceAccount.setValue(sourceAccount.getValue() - amount);
+            destAccount.setValue(destAccount.getValue() + amount);
+            result = true;
         }
         return result;
+    }
+
+    /**
+     * Find user by passport
+     * @param passport String
+     * @return User
+     */
+    public User getUserByPassport(String passport) {
+        Set<User> allUsers = this.data.keySet();
+        User targetUser = null;
+        for (User user : allUsers) {
+            if (passport.equals(user.getPassport())) {
+                targetUser = user;
+            }
+        }
+        return targetUser;
+    }
+
+    /**
+     * Find Account by passport and requisite
+     * @param passport String
+     * @param requisite requisite
+     * @return Account
+     */
+    public Account getAccountByRequisiteFromUserPassport(String passport, String requisite) {
+        Account target = null;
+        User user = this.getUserByPassport(passport);
+        if (user != null) {
+            List<Account> accounts = this.data.get(user);
+            int index = accounts.indexOf(new Account(0, requisite));
+            if (index != -1) {
+                target = accounts.get(index);
+            }
+        }
+        return target;
     }
 
     /**

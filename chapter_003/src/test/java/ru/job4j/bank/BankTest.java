@@ -113,4 +113,22 @@ public class BankTest {
         boolean result = bank.transferMoney("111", "AAA", "222", "BBB", 50.0);
         assertThat(result, is(true));
     }
+
+    /**
+     * Test of transferMoney2
+     */
+    @Test
+    public void whenAccountNotFoundThenFalse() {
+        Bank bank = new Bank();
+        User user = new User("Jack", "111");
+        User user2 = new User("Bill", "222");
+
+        bank.addUser(user);
+        bank.addUser(user2);
+        bank.addAccountToUser("111", new Account(100.0, "AAA"));
+        bank.addAccountToUser("222", new Account(100.0, "BBB"));
+
+        boolean result = bank.transferMoney("11", "AA", "222", "BBB", 50.0);
+        assertThat(result, is(false));
+    }
 }
