@@ -34,7 +34,10 @@ public class Bank {
      * @param account
      */
     public void addAccountToUser(String passport, Account account) {
-        this.data.get(this.getUserByPassport(passport)).add(account);
+        User user = this.getUserByPassport(passport);
+        if (user != null) {
+            this.data.get(user).add(account);
+        }
     }
 
     /**
@@ -43,7 +46,10 @@ public class Bank {
      * @param account
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        this.data.get(this.getUserByPassport(passport)).remove(account);
+        User user = this.getUserByPassport(passport);
+        if (user != null) {
+            this.data.get(user).remove(account);
+        }
     }
 
     /**
@@ -52,7 +58,12 @@ public class Bank {
      * @return
      */
     public List<Account> getUserAccounts(String passport) {
-        return this.data.get(this.getUserByPassport(passport));
+        List<Account> listAccounts = null;
+        User user = this.getUserByPassport(passport);
+        if (user != null) {
+            listAccounts = this.data.get(user);
+        }
+        return listAccounts;
     }
 
     /**
