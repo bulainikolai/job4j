@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
  */
 public class CalculatorTest {
     /**
-     * Test of multiple
+     * Test of multiple1
      */
     @Test
     public void whenAdd1Until3() {
@@ -26,6 +26,21 @@ public class CalculatorTest {
                 0, 3, 1,
                 (value, index) -> (double) value + index,
                 result -> buffer.add(result)
+        );
+        assertThat(buffer, is(Arrays.asList(1D, 2D, 3D)));
+    }
+
+    /**
+     * Test of multiple2
+     */
+    @Test
+    public void whenAdd1Until3ThroughReference() {
+        Calculator calc = new Calculator();
+        List<Double> buffer = new ArrayList<>();
+        calc.multiple(
+                0, 3, 1,
+                MathUtil::add, //static call
+                buffer::add // non-static call
         );
         assertThat(buffer, is(Arrays.asList(1D, 2D, 3D)));
     }
