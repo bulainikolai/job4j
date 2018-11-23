@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * MenuTracker
@@ -75,7 +76,7 @@ public class MenuTracker {
      * @param key ключ операции
      */
     public void select(int key) {
-        this.actions.get(key).execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker, n -> System.out.println(n));
     }
 
     /**
@@ -93,13 +94,13 @@ public class MenuTracker {
      * Method showInfo help print
      * @param item object, which data will print
      */
-    private void showInfo(Item item) {
+    private void showInfo(Item item, Consumer<String> media) {
         List<String> comments = item.getComments();
-        System.out.println("ID: " + item.getId());
-        System.out.println("Name: " + item.getName());
-        System.out.println("Description: " + item.getDescription());
+        media.accept("ID: " + item.getId());
+        media.accept("Name: " + item.getName());
+        media.accept("Description: " + item.getDescription());
         for (String comment: comments) {
-            System.out.println("Comment: "  + comment);
+            media.accept("Comment: "  + comment);
         }
     }
 
@@ -123,15 +124,15 @@ public class MenuTracker {
          * @param tracker объект типа Tracker
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Добавление новой заявки --------------");
-            String name = input.ask("Введите имя заявки: ");
-            String desc = input.ask("Введите описание заявки: ");
-            String comments = input.ask("Введите комментарий к заявке: ");
+        public void execute(Input input, Tracker tracker, Consumer<String> media) {
+            media.accept("------------ Добавление новой заявки --------------");
+            String name = input.ask("Введите имя заявки: ", n -> System.out.println(n));
+            String desc = input.ask("Введите описание заявки: ", n -> System.out.println(n));
+            String comments = input.ask("Введите комментарий к заявке: ", n -> System.out.println(n));
             Item item = new Item(name, desc, System.currentTimeMillis());
             item.setComments(comments);
             tracker.add(item);
-            System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
+            media.accept("------------ Новая заявка с getId : " + item.getId() + "-----------");
         }
     }
 
@@ -152,20 +153,20 @@ public class MenuTracker {
          * @param tracker объект типа Tracker
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Отображение списка всех заявок --------------");
+        public void execute(Input input, Tracker tracker, Consumer<String> media) {
+            media.accept("------------ Отображение списка всех заявок --------------");
             List<Item> items = tracker.getAll();
             if (items.size() > 0) {
                 int number = 1;
                 for (Item item: items) {
                     System.out.println(number);
-                    showInfo(item);
+                    showInfo(item, n -> System.out.println(n));
                     number++;
                 }
             } else {
-                System.out.println("----------------Заявки отсутствуют--------------");
+                media.accept("----------------Заявки отсутствуют--------------");
             }
-            System.out.println("------------------------------------------------");
+            media.accept("------------------------------------------------");
         }
     }
 
@@ -186,20 +187,20 @@ public class MenuTracker {
          * @param tracker объект типа Tracker
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Редактирование заявки --------------");
-            String id = input.ask("Введите id редактируемой заявки: ");
+        public void execute(Input input, Tracker tracker, Consumer<String> media) {
+            media.accept("------------ Редактирование заявки --------------");
+            String id = input.ask("Введите id редактируемой заявки: ", n -> System.out.println(n));
             Item previous = tracker.findById(id);
             if (previous != null) {
-                String name = input.ask("Введите новое имя заявки : ");
-                String desc = input.ask("Введите новое описание заявки : ");
-                String comment = input.ask("Введите новый комментарий к заявке: ");
+                String name = input.ask("Введите новое имя заявки : ", n -> System.out.println(n));
+                String desc = input.ask("Введите новое описание заявки : ", n -> System.out.println(n));
+                String comment = input.ask("Введите новый комментарий к заявке: ", n -> System.out.println(n));
                 Item newItem = new Item(name, desc, System.currentTimeMillis());
                 newItem.setComments(comment);
                 tracker.replace(previous.getId(), newItem);
-                System.out.println("-------------Заявка отредактирована!---------------");
+                media.accept("-------------Заявка отредактирована!---------------");
             } else {
-                System.out.println("-----------Заявка с данным ID отсутствует!-----------");
+                media.accept("-----------Заявка с данным ID отсутствует!-----------");
             }
         }
     }
@@ -221,15 +222,15 @@ public class MenuTracker {
          * @param tracker объект типа Tracker
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Удаление заявки --------------");
-            String id = input.ask("Введите id удаляемой заявки: ");
+        public void execute(Input input, Tracker tracker, Consumer<String> media) {
+            media.accept("------------ Удаление заявки --------------");
+            String id = input.ask("Введите id удаляемой заявки: ", n -> System.out.println(n));
             Item deleted = tracker.findById(id);
             if (deleted != null) {
                 tracker.delete(deleted.getId());
-                System.out.println("--------Заявка удалена!-----------------");
+                media.accept("--------Заявка удалена!-----------------");
             } else {
-                System.out.println("----------Заявка с данным ID отсутствует!----------");
+                media.accept("----------Заявка с данным ID отсутствует!----------");
             }
         }
     }
@@ -252,22 +253,22 @@ class FindItemById extends BaseAction {
      * @param tracker объект типа Tracker
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Поиск заявки по ID --------------");
-        String id = input.ask("Введите id искомой заявки: ");
+    public void execute(Input input, Tracker tracker, Consumer<String> media) {
+        media.accept("------------ Поиск заявки по ID --------------");
+        String id = input.ask("Введите id искомой заявки: ", n -> System.out.println(n));
         Item item = tracker.findById(id);
         if (item != null) {
             List<String> comments = item.getComments();
-            System.out.println("ID: " + item.getId());
-            System.out.println("Name: " + item.getName());
-            System.out.println("Description: " + item.getDescription());
+            media.accept("ID: " + item.getId());
+            media.accept("Name: " + item.getName());
+            media.accept("Description: " + item.getDescription());
             for (String comment: comments) {
-                System.out.println("Comment: "  + comment);
+                media.accept("Comment: "  + comment);
             }
         } else {
-            System.out.println("----------------Заявки отсутствуют--------------");
+            media.accept("----------------Заявки отсутствуют--------------");
         }
-        System.out.println("------------------------------------------------");
+        media.accept("------------------------------------------------");
     }
 }
 
@@ -288,27 +289,27 @@ class FindItemsByName extends BaseAction {
      * @param tracker объект типа Tracker
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Поиск заявки по Имени --------------");
-        String name = input.ask("Введите имя искомой заявки: ");
+    public void execute(Input input, Tracker tracker, Consumer<String> media) {
+        media.accept("------------ Поиск заявки по Имени --------------");
+        String name = input.ask("Введите имя искомой заявки: ", n -> System.out.println(n));
         List<Item> items = tracker.findByName(name);
         if (items.size() > 0) {
             int number = 1;
             for (Item item: items) {
-                System.out.println(number);
+                media.accept(number + "");
                 List<String> comments = item.getComments();
-                System.out.println("ID: " + item.getId());
-                System.out.println("Name: " + item.getName());
-                System.out.println("Description: " + item.getDescription());
+                media.accept("ID: " + item.getId());
+                media.accept("Name: " + item.getName());
+                media.accept("Description: " + item.getDescription());
                 for (String comment: comments) {
-                    System.out.println("Comment: "  + comment);
+                    media.accept("Comment: "  + comment);
                 }
                 number++;
             }
         } else {
-            System.out.println("-------Заявки c таким именем отсутствуют-------");
+            media.accept("-------Заявки c таким именем отсутствуют-------");
         }
-        System.out.println("------------------------------------------------");
+        media.accept("------------------------------------------------");
     }
 }
 
@@ -332,8 +333,8 @@ class ExitProgram extends BaseAction {
      * @param tracker объект типа Tracker
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("Selected point 6. Exit from program.");
+    public void execute(Input input, Tracker tracker, Consumer<String> media) {
+        media.accept("Selected point 6. Exit from program.");
         this.ui.stop();
     }
 }

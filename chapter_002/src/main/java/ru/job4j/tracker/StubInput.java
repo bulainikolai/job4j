@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * StubInput
@@ -40,13 +41,14 @@ public class StubInput implements Input {
      * при следующем вызове он вернет нам новое значение.
      */
     @Override
-    public String ask(String question) {
+    public String ask(String question, Consumer<String> media) {
+        media.accept(question);
         return this.value[this.position++];
     }
 
     @Override
     public int ask(String question, List<Integer> range) {
-        int key = Integer.valueOf(this.ask(question));
+        int key = Integer.valueOf(this.ask(question, n -> System.out.println()));
         boolean exist = false;
         for (int value: range) {
             if (value == key) {

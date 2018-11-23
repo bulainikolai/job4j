@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * ConsoleInput
@@ -21,8 +22,8 @@ public class ConsoleInput implements Input {
      * @param question important information
      * @return answer on question
      */
-    public String ask(String question) {
-        System.out.print(question);
+    public String ask(String question, Consumer<String> media) {
+        media.accept(question);
         return scanner.nextLine();
     }
 
@@ -33,7 +34,7 @@ public class ConsoleInput implements Input {
      * @return point of menu
      */
     public int ask(String question, List<Integer> range) {
-        int key = Integer.valueOf(this.ask(question));
+        int key = Integer.valueOf(this.ask(question, n -> System.out.println(n)));
         boolean exist = false;
         for (int value: range) {
             if (value == key) {

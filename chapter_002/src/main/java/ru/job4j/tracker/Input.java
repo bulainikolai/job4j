@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * Input
@@ -16,7 +17,7 @@ public interface Input {
      * @param question
      * @return answer
      */
-    String ask(String question);
+    String ask(String question, Consumer<String> media);
 
     /**
      * Method ask get point of menu

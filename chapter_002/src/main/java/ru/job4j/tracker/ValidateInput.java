@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * ValidateInput
@@ -30,8 +31,8 @@ public class ValidateInput implements Input {
      * @return answer in string
      */
     @Override
-    public String ask(String question) {
-        return this.input.ask(question);
+    public String ask(String question, Consumer<String> media) {
+        return this.input.ask(question, n -> System.out.println());
     }
 
     /**

@@ -59,7 +59,7 @@ public class ValidateInputTest {
         assertThat(
                 this.mem.toString(),
                 is(
-                        String.format("Please enter validate data again.%n")
+                        String.format("%nPlease enter validate data again.%n%n")
                 )
         );
     }
@@ -78,7 +78,7 @@ public class ValidateInputTest {
         assertThat(
                 this.mem.toString(),
                 is(
-                        String.format("Please select point from menu.%n")
+                        String.format("%nPlease select point from menu.%n%n")
                 )
         );
     }
