@@ -51,34 +51,18 @@ public class Departments {
      */
     public String[] sortDepartmentsBack(String[] data) {
         List<String> list = new ArrayList<>(fillArray(data));
-        list.sort(new Comparator<String>() {
-                    @Override
-                    public int compare(String s, String t1) {
-                        int result = 0;
-                        String[] arrS = s.split("/");
-                        String[] arrT1 = t1.split("/");
-                        int count = arrS.length <= arrT1.length ? arrS.length : arrT1.length;
-                        int firstPart = arrT1[0].compareTo(arrS[0]);
-                        if (firstPart != 0) {
-                            result = firstPart;
-                        }
-                        if (result == 0) {
-                            for (int index = 1; index < count; index++) {
-                                int otherPart = arrS[index].compareTo(arrT1[index]);
-                                if (otherPart != 0) {
-                                    result = otherPart;
-                                    break;
-                                }
-                                if (arrS.length - (index + 1) == 0 || arrT1.length - (index + 1) == 0) {
-                                    result = Integer.compare(arrS.length, arrT1.length);
-                                    break;
-                                }
-                            }
-                        }
-                        return result;
-                    }
-        });
-        String[] result = new String[list.size()];
-        return list.toArray(result);
+        Set<String> listK1 = new TreeSet<>();
+        Set<String> listK2 = new TreeSet<>();
+        for (String str : list) {
+            if ("K1".equals(str.substring(0, 2))) {
+                listK1.add(str);
+            } else {
+                listK2.add(str);
+            }
+        }
+        List<String> correct = new ArrayList<>(listK2);
+        correct.addAll(listK1);
+        String[] result = new String[correct.size()];
+        return correct.toArray(result);
     }
 }
