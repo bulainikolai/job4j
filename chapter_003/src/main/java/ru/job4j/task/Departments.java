@@ -51,17 +51,20 @@ public class Departments {
      */
     public String[] sortDepartmentsBack(String[] data) {
         List<String> list = new ArrayList<>(fillArray(data));
-        Set<String> listK1 = new TreeSet<>();
-        Set<String> listK2 = new TreeSet<>();
+        Set<String> keys = new TreeSet<>((s1, s2) -> s2.compareTo(s1));
         for (String str : list) {
-            if ("K1".equals(str.substring(0, 2))) {
-                listK1.add(str);
-            } else {
-                listK2.add(str);
-            }
+            keys.add(str.substring(0, 2));
         }
-        List<String> correct = new ArrayList<>(listK2);
-        correct.addAll(listK1);
+        List<String> correct = new ArrayList<>();
+        for (String strKey : keys) {
+            TreeSet<String> part = new TreeSet<>();
+            for (String nextPart : list) {
+                if (strKey.equals(nextPart.substring(0, 2))) {
+                    part.add(nextPart);
+                }
+            }
+            correct.addAll(part);
+        }
         String[] result = new String[correct.size()];
         return correct.toArray(result);
     }
