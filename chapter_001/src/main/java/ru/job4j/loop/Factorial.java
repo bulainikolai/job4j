@@ -5,7 +5,7 @@ package ru.job4j.loop;
  *
  * @author Nikolai Bulai (turisto777.nb@gmail.com)
  * @version 1
- * @sinse 12.08.2018
+ * @since 12.08.2018
  */
 public class Factorial {
 
