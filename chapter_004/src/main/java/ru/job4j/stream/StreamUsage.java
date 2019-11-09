@@ -31,6 +31,16 @@ public class StreamUsage {
                 task -> task.name.contains("Bug")
         ).collect(Collectors.toList());
         bugs.forEach(System.out::println);
+
+        List<String> names = tasks.stream().map(
+                task -> task.name
+        ).collect(Collectors.toList());
+        names.forEach(System.out::println);
+
+        long total = tasks.stream().map(
+                task -> task.spent
+        ).reduce(0L, Long::sum);
+        System.out.println(total);
     }
 }
 
